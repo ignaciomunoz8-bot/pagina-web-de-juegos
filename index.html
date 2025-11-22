@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nova XP</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
-    
+   
     <style>
         body {
             font-family: 'Orbitron', sans-serif;
@@ -23,16 +23,16 @@
             align-items: center;
             border-bottom: 3px solid #00f0ff;
         }
-        
-        /* Estilo para el logo en el header */
+       
+       
         .header .logo-container {
             display: flex;
             align-items: center;
         }
-        
+       
         .header .logo-container img {
-            width: 60px; /* Ajusta según necesites */
-            height: 30px; /* Ajusta según necesites */
+            width: 60px;
+            height: 30px;
             margin-right: 15px;
         }
 
@@ -130,7 +130,7 @@
             overflow: hidden;
             border: 1px solid #00f0ff;
             margin-bottom: 20px;
-            /* Añadido para espaciar los botones y el precio */
+           
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -157,12 +157,12 @@
             font-size: 1.5em;
             color: #ff00ff;
             font-weight: bold;
-            margin-top: 10px; /* Añadido para separar del botón */
+            margin-top: 10px;
         }
-        
-        /* El botón "Comprar" ahora es un <a>, no un <p> */
+       
+       
         .product-card .btn-neon {
-            margin-top: auto; /* Empuja el botón hacia abajo si la tarjeta crece */
+            margin-top: auto;
         }
 
         .etiqueta-lanzamiento {
@@ -174,7 +174,7 @@
             padding: 5px 10px;
             font-size: 0.8em;
             font-weight: bold;
-            clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 0); /* Revisa este clip-path si no se ve bien */
+            clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 0);
         }
 
         .footer {
@@ -193,11 +193,11 @@
             border: 1px solid #ff00ff;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
-            /* display: none; */ /* Se mantiene visible para el ejemplo */
+           
         }
-        
-        /* --- REGLAS CSS CORREGIDAS (ANTES ANIDADAS) --- */
-        
+       
+       
+       
         .auth-container {
             position: absolute;
             top: 20px;
@@ -284,7 +284,7 @@
             margin-top: 10px;
         }
 
-        /* Esta regla estaba incompleta: .neon- */
+       
         .neon-button:hover {
             background-color: #ff33ff;
             box-shadow: 0 0 15px rgba(255, 51, 255, 0.8);
@@ -305,8 +305,8 @@
             color: #ff00ff;
             text-decoration: underline;
         }
-        
-        /* Modal Styles */
+       
+       
         .modal {
             display: none;
             position: fixed;
@@ -327,7 +327,7 @@
             border-radius: 12px;
             box-shadow: 0 0 25px #ff00ff;
             animation: abrir .3s ease-out;
-            box-sizing: border-box; /* Añadido por si acaso */
+            box-sizing: border-box;
         }
 
         @keyframes abrir {
@@ -339,14 +339,14 @@
             float: right;
             font-size: 28px;
             cursor: pointer;
-            color: #e5e5e5; /* Color añadido */
+            color: #e5e5e5;
         }
 
         .modal-content h2 {
             color: #00f0ff;
             margin-bottom: 20px;
             text-align: center;
-            margin-top: 0; /* Ajuste */
+            margin-top: 0;
         }
 
         .modal-content input {
@@ -357,7 +357,7 @@
             border-radius: 8px;
             background: #1a1a2e;
             color: #00f0ff;
-            box-sizing: border-box; /* Añadido */
+            box-sizing: border-box;
         }
 
         .btn-submit {
@@ -372,29 +372,29 @@
             cursor: pointer;
             box-shadow: 0 0 12px #ff00ff;
         }
-        
-        /* Estilos para la sección de detalles del juego */
+       
+       
         .info-grid {
             display: flex;
             gap: 20px;
-            flex-wrap: wrap; /* Para responsiveness */
+            flex-wrap: wrap;
         }
-        
+       
         .info-grid img {
             max-width: 100%;
             height: auto;
             border-radius: 8px;
         }
-        
+       
         .descripcion {
             flex: 1;
         }
-        
+       
         .especificaciones {
             list-style: none;
             padding-left: 0;
         }
-        
+       
         .especificaciones li {
             margin-bottom: 10px;
         }
@@ -403,7 +403,7 @@
 </head>
 
 <body>
-    
+   
     <div id="modalRegistro" class="modal">
         <div class="modal-content">
             <span class="close" onclick="cerrarRegistro()">&times;</span>
@@ -416,7 +416,7 @@
         </div>
     </div>
 
-    
+   
     <header class="header">
         <div class="logo-container">
             <img src="LOGO.jpg" alt="Nova XP Logo" width="60" height="30">
@@ -430,7 +430,7 @@
         </nav>
     </header>
 
-    
+   
     <main id="inicio">
 
         <section class="hero">
@@ -480,10 +480,10 @@
                 <p class="precio">$62.90</p>
             </div>
         </section>
-        
+       
         <section id="ofertas" class="product-grid" style="background-color: #0f0f1a;">
             <h2> Ofertas Exclusivas </h2>
-            
+           
             <div class="product-card">
                 <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3527290/bd3771d9a3827610b2742de13d8552918008c302/header_alt_assets_2.jpg?t=1762370967" alt="Peak" width="300" height="200">
                 <h3>Peak</h3>
@@ -491,7 +491,7 @@
                 <p style="text-decoration: line-through; color: #aaa; margin-top: 10px; margin-bottom: 0;">$4.20</p>
                 <p class="precio">$2.60</p>
             </div>
-            
+           
             <div class="product-card">
                 <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/850190/8d86157e7fb48b963d95879e81b97ff9f7b619d5/header.jpg?t=1763042625" alt="Goat Simulator 3" width="300" height="200">
                 <h3>Goat Simulator 3</h3>
@@ -501,13 +501,13 @@
                 <span class="etiqueta-lanzamiento" style="background-color: #00f0ff; color: #1a1a2e; box-shadow: 0 0 10px #00f0ff;">¡BARATO!</span>
             </div>
         </section>
-            
+           
         <section id="detalle-cyber" class="detalle-container">
             <h2>Cyber Punk 2077 - Detalle del Juego</h2>
-            
+           
             <div class="info-grid">
                 <img src="https://img.tamindir.com/2023/09/476730/cyberpunk-2077-hakkinda.jpg" width="380" height="300" alt="Imagen de Cyber Fusion 2077">
-                
+               
                 <div class="descripcion">
                     <p><strong>Precio:</strong> <span class="precio">$39.99 USD</span></p>
                     <p>Sumérgete en un mundo distópico de neón y tecnología. Este RPG de acción en mundo abierto permite que tus decisiones moldeen el destino de Night City.</p>
@@ -523,7 +523,7 @@
         </section>
 
     </main>
-    
+   
     <script>
         const modalRegistro = document.getElementById("modalRegistro");
 
@@ -541,7 +541,7 @@
             }
         }
     </script>
-    
+   
     <footer class="footer">
         <p>© 2025 Game Zone. Todos los derechos reservados.</p>
     </footer>
