@@ -3,233 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Álbum de Recuerdos</title>
-    
-    <!-- Fuente elegante de Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
-    
-    <!-- Tailwind CSS para diseño rápido -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
+    <title>Álbum de Fotos MYGGG</title>
     <style>
-        /* Estilos personalizados y Animaciones */
         body {
-            font-family: 'Lato', sans-serif;
-            background-color: #0f172a; /* Fondo oscuro elegante */
-            background-image: radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
-                              radial-gradient(at 50% 0%, hsla(225,39%,30%,1) 0, transparent 50%), 
-                              radial-gradient(at 100% 0%, hsla(339,49%,30%,1) 0, transparent 50%);
-            min-height: 100vh;
-            color: #fff;
-            overflow-x: hidden;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #ece9e6, #ffffff);
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+            font-size: 2.5rem;
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 10px;
+        }
+        .gallery img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        .gallery img:hover {
+            transform: scale(1.07);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.35);
         }
 
-        h1, h2, h3 {
-            font-family: 'Playfair Display', serif;
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            padding-top: 50px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
         }
-
-        /* Animación de entrada escalonada */
-        .photo-card {
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 80vh;
+            border-radius: 10px;
         }
-
-        /* Retrasos para cada foto para efecto cascada */
-        .photo-card:nth-child(1) { animation-delay: 0.1s; }
-        .photo-card:nth-child(2) { animation-delay: 0.2s; }
-        .photo-card:nth-child(3) { animation-delay: 0.3s; }
-        .photo-card:nth-child(4) { animation-delay: 0.4s; }
-        .photo-card:nth-child(5) { animation-delay: 0.5s; }
-
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
         }
-
-        /* Efecto Hover en las imágenes */
-        .img-container {
-            overflow: hidden;
-            position: relative;
-        }
-        
-        .img-container img {
-            transition: transform 0.7s ease;
-        }
-
-        .photo-card:hover .img-container img {
-            transform: scale(1.1);
-        }
-
-        .photo-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-        }
-
-        /* Modal / Lightbox */
-        #lightbox {
-            transition: opacity 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
-        
-        .hidden-box {
-            opacity: 0;
-            pointer-events: none;
-        }
-        
-        .visible-box {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        /* Scrollbar personalizada */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0f172a; 
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #475569; 
-            border-radius: 4px;
+        .close:hover {
+            color: #bbb;
         }
     </style>
 </head>
-<body class="selection:bg-pink-500 selection:text-white">
+<body>
+    <h1>Álbum de Fotos</h1>
 
-    <!-- Encabezado -->
-    <header class="text-center pt-16 pb-10 px-4">
-        <p class="text-pink-400 tracking-widest text-sm uppercase mb-2 animate-pulse">Colección 2024</p>
-        <h1 class="text-5xl md:text-7xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-pink-200 to-indigo-200">
-            Momentos Inolvidables
-        </h1>
-        <p class="text-slate-400 text-lg max-w-xl mx-auto font-light">
-            Cinco instantes capturados en el tiempo. Pequeños fragmentos de belleza eterna.
-        </p>
-    </header>
+    <div class="gallery">
+        <img src="https://scontent.fccp5-1.fna.fbcdn.net/v/t1.15752-9/589963313_1822130968439683_4710755205833150919_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=0024fc&_nc_ohc=FK_MPFSznJ8Q7kNvwGfAnt6&_nc_oc=Adl4S1WXs1lkA7R5xATokTW1Xn9NlN88-H8BMBkW-aR40ZWehfLWsdZaHz9qgcXBYyI&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.fccp5-1.fna&oh=03_Q7cD4AFBPQoPJQXWe6g6o-lKQ0br0vX0ca0yDhbNfVXDUpgdtg&oe=6959739B" alt="Foto 1" onclick="openModal(this.src)">
 
-    <!-- Galería Principal -->
-    <main class="container mx-auto px-4 pb-20">
-        <!-- Grid Masonry-ish -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            
-            <!-- Foto 1 (Grande) -->
-            <div class="photo-card group relative bg-slate-800/50 rounded-2xl overflow-hidden border border-slate-700/50 shadow-xl cursor-pointer lg:col-span-2 lg:row-span-2" onclick="openLightbox('https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80', 'El Gran Cañón', 'La inmensidad de la naturaleza al atardecer.')">
-                <div class="https://scontent.fccp5-1.fna.fbcdn.net/v/t1.15752-9/589963313_1822130968439683_4710755205833150919_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=0024fc&_nc_ohc=FK_MPFSznJ8Q7kNvwGfAnt6&_nc_oc=Adl4S1WXs1lkA7R5xATokTW1Xn9NlN88-H8BMBkW-aR40ZWehfLWsdZaHz9qgcXBYyI&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.fccp5-1.fna&oh=03_Q7cD4AFBPQoPJQXWe6g6o-lKQ0br0vX0ca0yDhbNfVXDUpgdtg&oe=6959739B">
-                    <img src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Paisaje" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
-                        <h3 class="text-2xl text-white font-bold translate-y-4 group-hover:translate-y-0 transition-transform duration-500">El Gran Horizonte</h3>
-                        <p class="text-slate-300 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-75">Naturaleza Salvaje</p>
-                    </div>
-                </div>
-            </div>
+        <img src="https://scontent.fccp4-1.fna.fbcdn.net/v/t1.15752-9/590965262_1194773915926768_7863944210422205848_n.jpg?stp=dst-jpg_p480x480_tt6&_nc_cat=111&ccb=1-7&_nc_sid=0024fc&_nc_ohc=lPJS0FsipWsQ7kNvwEHa5To&_nc_oc=AdmloYP3ft98oxfZrL52Up_j-KPyzcLrC_nI5evaqHJl47s-xKLELsDasKBSkZq9OEk&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.fccp4-1.fna&oh=03_Q7cD4AFNM10ibiQfy7NYSf9DfOMaNS6AHTMSuuFYnLJWaiiqWg&oe=695977F3" alt="Foto 2" onclick="openModal(this.src)">
 
-            <!-- Foto 2 -->
-            <div class="photo-card group relative bg-slate-800/50 rounded-2xl overflow-hidden border border-slate-700/50 shadow-xl cursor-pointer" onclick="openLightbox('https://images.unsplash.com/photo-1516483638261-f4dbaf036963?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80', 'Cinque Terre', 'Colores vibrantes en la costa italiana.')">
-                <div class="img-container h-64 md:h-full w-full">
-                    <img src="https://scontent.fccp4-1.fna.fbcdn.net/v/t1.15752-9/590965262_1194773915926768_7863944210422205848_n.jpg?stp=dst-jpg_p480x480_tt6&_nc_cat=111&ccb=1-7&_nc_sid=0024fc&_nc_ohc=lPJS0FsipWsQ7kNvwEHa5To&_nc_oc=AdmloYP3ft98oxfZrL52Up_j-KPyzcLrC_nI5evaqHJl47s-xKLELsDasKBSkZq9OEk&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.fccp4-1.fna&oh=03_Q7cD4AFNM10ibiQfy7NYSf9DfOMaNS6AHTMSuuFYnLJWaiiqWg&oe=695977F3" alt="Italia" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <span class="border border-white/50 px-4 py-2 rounded-full text-sm backdrop-blur-sm">Ver Foto</span>
-                    </div>
-                </div>
-            </div>
+        <img src="https://scontent.fccp5-1.fna.fbcdn.net/v/t1.15752-9/590623360_858181303423438_5333702691618149176_n.jpg?stp=dst-jpg_p480x480_tt6&_nc_cat=105&ccb=1-7&_nc_sid=0024fc&_nc_ohc=QwHVzxnvw3MQ7kNvwE0BWjE&_nc_oc=AdlJ8x_NlFl5eLN6oCVIFFly6GY6Elg8JsP4weHsyXaxJSP2bWsKRHxlZArHQZhCdXM&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.fccp5-1.fna&oh=03_Q7cD4AHjM7WeHOW5G49u2ptzHkJ8p-GfMKDuCteh3j7uBcvt0Q&oe=69599380" alt="Foto 3" onclick="openModal(this.src)">
 
-            <!-- Foto 3 -->
-            <div class="photo-card group relative bg-slate-800/50 rounded-2xl overflow-hidden border border-slate-700/50 shadow-xl cursor-pointer" onclick="openLightbox('https://images.unsplash.com/photo-1523712999610-f77fbcfc3843?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80', 'Bosque de Otoño', 'Caminos cubiertos de hojas doradas.')">
-                <div class="img-container h-64 md:h-full w-full">
-                    <img src="https://scontent.fccp5-1.fna.fbcdn.net/v/t1.15752-9/590623360_858181303423438_5333702691618149176_n.jpg?stp=dst-jpg_p480x480_tt6&_nc_cat=105&ccb=1-7&_nc_sid=0024fc&_nc_ohc=QwHVzxnvw3MQ7kNvwE0BWjE&_nc_oc=AdlJ8x_NlFl5eLN6oCVIFFly6GY6Elg8JsP4weHsyXaxJSP2bWsKRHxlZArHQZhCdXM&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.fccp5-1.fna&oh=03_Q7cD4AHjM7WeHOW5G49u2ptzHkJ8p-GfMKDuCteh3j7uBcvt0Q&oe=69599380" alt="Bosque" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <span class="border border-white/50 px-4 py-2 rounded-full text-sm backdrop-blur-sm">Ver Foto</span>
-                    </div>
-                </div>
-            </div>
+        <img src="https://scontent.fccp5-1.fna.fbcdn.net/v/t1.15752-9/592321450_1392470522251563_2515218907943609042_n.jpg?stp=dst-jpg_p480x480_tt6&_nc_cat=106&ccb=1-7&_nc_sid=0024fc&_nc_ohc=gUDtAyizxrgQ7kNvwFRaE97&_nc_oc=AdmKVVV_8uOpWCTisJtoqhQUgfF4tWcCFB9HiqEqpOIdBkOjdjyX63yyqm0Ti3r6FcU&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.fccp5-1.fna&oh=03_Q7cD4AGC5XxXClJ-ODdZcKUHHpkpJQ-9ddk_J9o_SGUc4Cpp-A&oe=6959662C" alt="Foto 4" onclick="openModal(this.src)">
 
-            <!-- Foto 4 -->
-            <div class="photo-card group relative bg-slate-800/50 rounded-2xl overflow-hidden border border-slate-700/50 shadow-xl cursor-pointer" onclick="openLightbox('https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80', 'Montañas Nevadas', 'La soledad de la cumbre.')">
-                <div class="img-container h-64 md:h-80 w-full">
-                    <img src="https://scontent.fccp5-1.fna.fbcdn.net/v/t1.15752-9/592321450_1392470522251563_2515218907943609042_n.jpg?stp=dst-jpg_p480x480_tt6&_nc_cat=106&ccb=1-7&_nc_sid=0024fc&_nc_ohc=gUDtAyizxrgQ7kNvwFRaE97&_nc_oc=AdmKVVV_8uOpWCTisJtoqhQUgfF4tWcCFB9HiqEqpOIdBkOjdjyX63yyqm0Ti3r6FcU&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.fccp5-1.fna&oh=03_Q7cD4AGC5XxXClJ-ODdZcKUHHpkpJQ-9ddk_J9o_SGUc4Cpp-A&oe=6959662C" alt="Montaña" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <span class="border border-white/50 px-4 py-2 rounded-full text-sm backdrop-blur-sm">Ver Foto</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Foto 5 -->
-            <div class="photo-card group relative bg-slate-800/50 rounded-2xl overflow-hidden border border-slate-700/50 shadow-xl cursor-pointer md:col-span-2 lg:col-span-2" onclick="openLightbox('https://images.unsplash.com/photo-1504893524553-bfe5d2ad76a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80', 'Reflejos Urbanos', 'La ciudad bajo la lluvia.')">
-                <div class="img-container h-64 md:h-80 w-full">
-                    <img src="https://scontent.fccp5-1.fna.fbcdn.net/v/t1.15752-9/592014520_844973958111738_4751158126330434923_n.jpg?stp=dst-jpg_p480x480_tt6&_nc_cat=105&ccb=1-7&_nc_sid=0024fc&_nc_ohc=76IDqF0xhuYQ7kNvwG46UJZ&_nc_oc=AdnNMHfSUswiaX-LsaF3v-YzMKcTK1vlAyOscJwPwVp__tHZ6AOSKjI0NqqP22gaTes&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.fccp5-1.fna&oh=03_Q7cD4AE0coQQ-7t_jjSn1QZ-VXNoO7QFZ63h8FSCtXhCRsqcCg&oe=69599558" alt="Ciudad" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
-                        <h3 class="text-2xl text-white font-bold translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Luces de Ciudad</h3>
-                        <p class="text-slate-300 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-75">Arquitectura Urbana</p>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        
-        <div class="text-center mt-12 text-slate-500 text-sm">
-            &copy; 2024 Creado con Sublime Text
-        </div>
-    </main>
-
-    <!-- Lightbox (Modal de pantalla completa) -->
-    <div id="lightbox" class="fixed inset-0 z-50 bg-black/90 hidden-box flex items-center justify-center p-4" onclick="closeLightbox()">
-        
-        <button class="absolute top-6 right-6 text-white hover:text-pink-400 transition-colors z-50">
-            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-        </button>
-
-        <div class="relative max-w-5xl w-full max-h-screen flex flex-col items-center" onclick="event.stopPropagation()">
-            <img id="lightbox-img" src="" alt="Full view" class="max-h-[80vh] w-auto rounded-lg shadow-2xl border border-white/10">
-            
-            <div class="mt-6 text-center">
-                <h2 id="lightbox-title" class="text-3xl font-bold text-white mb-2"></h2>
-                <p id="lightbox-desc" class="text-slate-300 font-light"></p>
-            </div>
-        </div>
+        <img src="https://scontent.fccp5-1.fna.fbcdn.net/v/t1.15752-9/592014520_844973958111738_4751158126330434923_n.jpg?stp=dst-jpg_p480x480_tt6&_nc_cat=105&ccb=1-7&_nc_sid=0024fc&_nc_ohc=76IDqF0xhuYQ7kNvwG46UJZ&_nc_oc=AdnNMHfSUswiaX-LsaF3v-YzMKcTK1vlAyOscJwPwVp__tHZ6AOSKjI0NqqP22gaTes&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.fccp5-1.fna&oh=03_Q7cD4AE0coQQ-7t_jjSn1QZ-VXNoO7QFZ63h8FSCtXhCRsqcCg&oe=69599558" alt="Foto 5" onclick="openModal(this.src)">
     </div>
 
-    <!-- Scripts -->
+    <!-- Modal -->
+    <div id="myModal" class="modal" onclick="closeModal()">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImg">
+    </div>
+
     <script>
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightbox-img');
-        const lightboxTitle = document.getElementById('lightbox-title');
-        const lightboxDesc = document.getElementById('lightbox-desc');
-
-        function openLightbox(imageSrc, title, desc) {
-            lightboxImg.src = imageSrc;
-            lightboxTitle.innerText = title;
-            lightboxDesc.innerText = desc;
-            
-            lightbox.classList.remove('hidden-box');
-            lightbox.classList.add('visible-box');
-            
-            // Bloquear scroll del body
-            document.body.style.overflow = 'hidden';
+        function openModal(src) {
+            document.getElementById("myModal").style.display = "block";
+            document.getElementById("modalImg").src = src;
         }
-
-        function closeLightbox() {
-            lightbox.classList.remove('visible-box');
-            lightbox.classList.add('hidden-box');
-            
-            // Limpiar src después de la transición para evitar parpadeos
-            setTimeout(() => {
-                lightboxImg.src = '';
-            }, 300);
-
-            // Reactivar scroll
-            document.body.style.overflow = 'auto';
+        function closeModal() {
+            document.getElementById("myModal").style.display = "none";
         }
-
-        // Cerrar con tecla Escape
-        document.addEventListener('keydown', function(event) {
-            if (event.key === "Escape") {
-                closeLightbox();
-            }
-        });
     </script>
 </body>
 </html>
-
